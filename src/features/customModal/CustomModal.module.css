@@ -1,0 +1,130 @@
+.priorityButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12;
+  list-style: none;
+  padding-left: 0;
+}
+
+.high {
+  color: #f73446;
+  border: 1px solid #f73446;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.highSelected {
+  color: white;
+  border: 1px solid #f73446;
+  background-color: #f73446;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.medium {
+  color: #ffbd21;
+  border: 1px solid #ffbd21;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.mediumSelected {
+  color: white;
+  border: 1px solid #ffbd21;
+  background-color: #ffbd21;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.low {
+  color: #0ac947;
+  border: 1px solid #0ac947;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.lowSelected {
+  color: white;
+  border: 1px solid #0ac947;
+  background-color: #0ac947;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.priorityHeading {
+  font-weight: 700;
+  font-size: 14;
+  color: #7d8592;
+}
+
+.priority-buttons li {
+  border: 1px solid #ffbd21;
+  border-radius: 10px;
+  color: #ffbd21;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 0;
+  text-align: center;
+  text-transform: capitalize;
+  width: 90px;
+}
+
+.addButton {
+  background-color: gray;
+  border: 1px solid #ffbd21;
+  color: white;
+  text-transform: none;
+  position: flex-end;
+  display: flex;
+}
+
+/* .activeAddButton {
+  background-color: #713fff;
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 6px 12px rgba(113, 63, 255, .25);
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  outline: none;
+  padding: 13px 30px;
+} */
+
+.addButton:disabled {
+  background-color: #7d8592;
+  cursor: not-allowed;
+  text-transform: none;
+  float: inline-end;
+}
+
+.addButton:active {
+  background-color: #713fff;
+  text-transform: none;
+  float: inline-end;
+}
