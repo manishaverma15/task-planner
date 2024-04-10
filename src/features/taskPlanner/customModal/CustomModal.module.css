@@ -1,3 +1,43 @@
+.mainContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400;
+  background-color: white;
+  box-shadow: 24;
+  padding: 4;
+  border-radius: 12;
+}
+
+.formWrapper {
+  padding: 20px 40px;
+}
+
+.titleWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 22;
+}
+
+.taskLabel {
+  font-weight: 700;
+  font-size: 14;
+  color: #7d8592;
+  margin-bottom: 10;
+}
+
+.textField {
+  border-radius: 10;
+  width: 100%;
+  margin-bottom: 2;
+}
+
 .priorityButtons {
   display: flex;
   justify-content: space-between;
@@ -102,19 +142,6 @@
   position: flex-end;
   display: flex;
 }
-
-/* .activeAddButton {
-  background-color: #713fff;
-  border: none;
-  border-radius: 14px;
-  box-shadow: 0 6px 12px rgba(113, 63, 255, .25);
-  color: #fff;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 600;
-  outline: none;
-  padding: 13px 30px;
-} */
 
 .addButton:disabled {
   background-color: #7d8592;

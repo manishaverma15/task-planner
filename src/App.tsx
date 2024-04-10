@@ -1,6 +1,6 @@
 import "./App.css"
 import React from 'react';
-import TaskList from "./features/taskList/TaskList"
+import TaskList from "./features/taskPlanner/taskList/TaskList"
 
 const App = () => {
   return (

@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { Box, Button } from "@mui/material";
 import styles from './Tasks.module.css';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useAppDispatch } from "../../app/hooks";
-import { deleteTask } from "../taskList/taskListSlice";
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import { useAppDispatch } from "../../../app/hooks";
+import { deleteTask, editTask } from "../taskList/taskListSlice";
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
-import EditNoteIcon from '@mui/icons-material/EditNote';
 
 const ToDoStatus = () => (
-  <CircularProgress variant="determinate" value={100} sx={{ color: '#e5e6e9' }} className={styles.circleProgress} />
+  <CircularProgress variant="determinate"
+    value={100} sx={{ color: '#e5e6e9' }} className={styles.circleProgress} />
 );
 
 const InProgressStatus = () => (
@@ -42,7 +43,12 @@ const TasksComponent = (props: any) => {
   }
 
   const handleDeleteTask = () => {
-    dispatch(deleteTask({ id: props.id }));
+    dispatch(deleteTask({ id: props.task.id }));
+  }
+
+  const handleEditTask = () => {
+    console.log('id', props.task.id)
+    console.log('task-props',props.handleEdit(props.task));
   }
 
   let StatusComponent;
@@ -54,18 +60,17 @@ const TasksComponent = (props: any) => {
     StatusComponent = DoneStatus;
   }
 
-
   return (
     <>
       <Box>
         <Box className={styles.taskCard}>
           <Box className={styles.titleContainer}>
             <span className={styles.taskTitle}>Task</span>
-            <span className={styles.task}>{props.text}</span>
+            <span className={styles.task}>{props.task.text}</span>
           </Box>
           <Box className={styles.priorityContainer}>
             <span className={styles.priorityTitle}>Priority</span>
-            <span className={styles.priorityStatus}>{props.priority}</span>
+            <span className={styles.priorityStatus}>{props.task.priority}</span>
           </Box>
           <Box className={styles.taskStatusWrapper}>
             <Button className={styles.status} onClick={handleTaskStatus}>{taskStatus}</Button>
@@ -74,7 +79,7 @@ const TasksComponent = (props: any) => {
             <StatusComponent />
           </Stack>
           <Box className={styles.actions}>
-            <EditNoteIcon className={styles.editTask} />
+            <EditNoteIcon className={styles.editTask} onClick={handleEditTask} />
             <DeleteIcon sx={{ color: 'red' }} onClick={handleDeleteTask} />
           </Box>
         </Box>

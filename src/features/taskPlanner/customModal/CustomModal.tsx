@@ -4,25 +4,16 @@ import Modal from '@mui/material/Modal';
 import { Box, TextField, Button, InputLabel } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import styles from './CustomModal.module.css';
-import { addTask } from '../taskList/taskListSlice';
-import { useAppDispatch } from '../../app/hooks';
+import { addTask, editTask } from '../taskList/taskListSlice';
+import { useAppDispatch } from '../../../app/hooks';
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: 12
-};
 
 const CustomModal = (props: any) => {
   const dispatch = useAppDispatch();
-  const [text, setText] = useState('');
-  const [prioritySelected, setPrioritySelected] = useState('low');
+  const { open, handleClose, selectedTask } = props;
+  console.log('selected-task', selectedTask)
+  const [text, setText] = React.useState(selectedTask ? selectedTask.text : '');
+  const [prioritySelected, setPrioritySelected] = React.useState(selectedTask ? selectedTask.priority : '');
   const [isTextInputEmpty, setIsTextInputEmpty] = useState(true);
 
   const selectPriority = (priority: string) => {
@@ -38,7 +29,14 @@ const CustomModal = (props: any) => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log('text and priority', text, prioritySelected);
-    console.log(dispatch(addTask({ text, priority: prioritySelected })));
+
+    if (props.isEditing) {
+      dispatch(editTask({ id: props.task.id, text: props.task.text, priority: props.task.priority }))
+    }
+    else {
+      dispatch(addTask({ text, priority: prioritySelected }));
+    }
+
     localStorage.setItem('task', JSON.stringify({ text, priority: prioritySelected }));
     setText('');
     props.handleClose();
@@ -52,21 +50,27 @@ const CustomModal = (props: any) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Box sx={{ padding: '20px 40px' }}>
+        <Box className={styles.mainContainer}>
+          <Box className={styles.formWrapper}>
             <form>
-              <Box sx={{ display: 'flex', justifyContent: "space-between", marginBottom: '30px' }}>
-                <Typography id="modal-modal-title" variant="h5" component="h2" sx={{ fontWeight: 'bold', fontSize: 22 }}>
-                  Add Task
-                </Typography>
+              <Box className={styles.titleWrapper}>
+                {props.isEditing ?
+                  <Typography id="modal-modal-title" variant="h5" component="h2" className={styles.title}>
+                    Edit Task
+                  </Typography>
+                  :
+                  <Typography id="modal-modal-title" variant="h5" component="h2" className={styles.title}>
+                    Add Task
+                  </Typography>
+                }
                 <ClearIcon onClick={props.handleClose} />
               </Box>
               <Box>
-                <InputLabel sx={{ fontWeight: 700, fontSize: 14, color: '#7d8592', marginBottom: 2 }}>Task</InputLabel>
+                <InputLabel className={styles.taskLabel}>Task</InputLabel>
                 <TextField
                   required
                   placeholder='Type your task here....'
-                  sx={{ borderRadius: 10, width: '100%', marginBottom: 2 }}
+                  className={styles.textField}
                   value={text}
                   onChange={handleTextChange}
                 />
@@ -84,8 +88,16 @@ const CustomModal = (props: any) => {
                 </ul>
               </Box>
               <Box>
-                <Button
-                  disabled={isTextInputEmpty} onClick={(e) => handleSubmit(e)}>Add</Button>
+                {props.isEditing ?
+                  <Button onClick={props.handleEdit}>
+                    Edit
+                  </Button>
+                  :
+                  <Button
+                    disabled={isTextInputEmpty} onClick={(e) => handleSubmit(e)}>
+                    Add
+                  </Button>
+                }
               </Box>
             </form>
           </Box>
