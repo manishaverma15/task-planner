@@ -8,3 +8,31 @@
   padding: 0 15px;
   width: 720px;
 }
+
+.containerWrapper {
+  background-color: lightgray;
+  height: 100vh;
+}
+
+.taskListHeading {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 30px;
+  justify-content: space-around
+}
+
+.addTaskButton {
+  background-color: #713fff;
+  margin-top: 25px !important;
+  text-transform: none !important;
+  border-radius: 12px !important;
+  padding: 10px 40px;
+}
+
+.addIcon {
+  margin-right: 10px;
+}
+
+.addTitle {
+  font-weight: 700;
+}

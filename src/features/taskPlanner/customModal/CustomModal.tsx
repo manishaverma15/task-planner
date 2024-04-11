@@ -7,14 +7,19 @@ import styles from './CustomModal.module.css';
 import { addTask, editTask } from '../taskList/taskListSlice';
 import { useAppDispatch } from '../../../app/hooks';
 
-
 const CustomModal = (props: any) => {
   const dispatch = useAppDispatch();
-  const { open, handleClose, selectedTask } = props;
-  console.log('selected-task', selectedTask)
+  const { open, handleClose, selectedTask, isEditing } = props;
   const [text, setText] = React.useState(selectedTask ? selectedTask.text : '');
-  const [prioritySelected, setPrioritySelected] = React.useState(selectedTask ? selectedTask.priority : '');
+  const [prioritySelected, setPrioritySelected] = React.useState(selectedTask ? selectedTask.priority : 'low');
   const [isTextInputEmpty, setIsTextInputEmpty] = useState(true);
+
+  React.useEffect(() => {
+    if (selectedTask) {
+      setText(selectedTask.text);
+      setPrioritySelected(selectedTask.priority);
+    }
+  }, [selectedTask]);
 
   const selectPriority = (priority: string) => {
     setPrioritySelected(priority);
@@ -28,10 +33,9 @@ const CustomModal = (props: any) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log('text and priority', text, prioritySelected);
 
-    if (props.isEditing) {
-      dispatch(editTask({ id: props.task.id, text: props.task.text, priority: props.task.priority }))
+    if (isEditing) {
+      dispatch(editTask({ id: selectedTask.id, text, priority: prioritySelected }))
     }
     else {
       dispatch(addTask({ text, priority: prioritySelected }));
@@ -39,31 +43,31 @@ const CustomModal = (props: any) => {
 
     localStorage.setItem('task', JSON.stringify({ text, priority: prioritySelected }));
     setText('');
-    props.handleClose();
+    handleClose();
     setPrioritySelected('low')
   };
 
   return (
     <div>
       <Modal
-        open={props.open}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        open={open}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <Box className={styles.mainContainer}>
           <Box className={styles.formWrapper}>
             <form>
               <Box className={styles.titleWrapper}>
-                {props.isEditing ?
-                  <Typography id="modal-modal-title" variant="h5" component="h2" className={styles.title}>
+                {isEditing ?
+                  <Typography id='modal-modal-title' variant='h5' component='h2' className={styles.title}>
                     Edit Task
                   </Typography>
                   :
-                  <Typography id="modal-modal-title" variant="h5" component="h2" className={styles.title}>
+                  <Typography id='modal-modal-title' variant='h5' component='h2' className={styles.title}>
                     Add Task
                   </Typography>
                 }
-                <ClearIcon onClick={props.handleClose} />
+                <ClearIcon onClick={handleClose} />
               </Box>
               <Box>
                 <InputLabel className={styles.taskLabel}>Task</InputLabel>
@@ -76,8 +80,7 @@ const CustomModal = (props: any) => {
                 />
               </Box>
               <Box>
-                <span className={styles.priorityHeading}
-                  style={{ fontWeight: 700, fontSize: 14, color: '#7d8592', marginBottom: 2 }}>Priority</span>
+                <span className={styles.priorityList}>Priority</span>
                 <ul className={styles.priorityButtons}>
                   <li onClick={() => selectPriority('high')}
                     className={prioritySelected === 'high' ? styles.highSelected : styles.high}>High</li>
@@ -88,13 +91,17 @@ const CustomModal = (props: any) => {
                 </ul>
               </Box>
               <Box>
-                {props.isEditing ?
-                  <Button onClick={props.handleEdit}>
+                {isEditing ?
+                  <Button
+                    onClick={(e) => handleSubmit(e)}
+                    className={styles.actionButton}>
                     Edit
                   </Button>
                   :
                   <Button
-                    disabled={isTextInputEmpty} onClick={(e) => handleSubmit(e)}>
+                    disabled={isTextInputEmpty}
+                    onClick={(e) => handleSubmit(e)}
+                    className={styles.actionButton}>
                     Add
                   </Button>
                 }
