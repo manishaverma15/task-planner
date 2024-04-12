@@ -5,15 +5,17 @@ import TasksComponent from '../tasks/Tasks';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../app/store';
 import styles from './TaskList.module.css';
-import CustomModal from '../customModal/CustomModal';
+import CustomModal from '../taskModal/TaskModal';
+import { Task } from './taskListSlice';
 
 const TaskList = () => {
   const tasks = useSelector((state: RootState) => state.addTask.tasks);
   const [open, setOpen] = React.useState(false);
   const [isEditing, setIsEditing] = React.useState(false);
-  const [editingTaskId, setEditingTaskId] = React.useState<string | null>(null);
+  const [editingTaskId, setEditingTaskId] = React.useState<string>('');
 
-  const selectedTask = useSelector((state: RootState) => state.addTask.tasks.find((task) => task.id === editingTaskId));
+  const selectedTask = useSelector((state: RootState) =>
+    state.addTask.tasks.find((task: Task) => task.id === editingTaskId)) || { id: '', text: '', priority: '' };
 
   const handleEdit = (taskId: string) => {
     setOpen(true);
@@ -55,7 +57,7 @@ const TaskList = () => {
           </ul>
           <Box>
             <CustomModal open={open} handleClose={handleClose}
-              isEditing={isEditing} handleEdit={handleEdit} selectedTask={selectedTask} />
+              isEditing={isEditing} selectedTask={selectedTask} />
           </Box>
         </Box>
       </Box>

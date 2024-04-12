@@ -7,6 +7,7 @@ import { useAppDispatch } from '../../../app/hooks';
 import { deleteTask } from '../taskList/taskListSlice';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
+import DeleteTask from '../deleteTask/DeleteTask';
 
 const ToDoStatus = () => (
   <CircularProgress variant='determinate'
@@ -30,6 +31,7 @@ const TasksComponent = (props: any) => {
   const { handleEdit } = props;
   const dispatch = useAppDispatch();
   const [taskStatus, setTaskStatus] = useState('To Do');
+  const [open, setOpen] = useState(false);
 
   const handleTaskStatus = () => {
     if (taskStatus === 'To Do') {
@@ -45,6 +47,10 @@ const TasksComponent = (props: any) => {
 
   const handleDeleteTask = () => {
     dispatch(deleteTask({ id: props.task.id }));
+  }
+
+  const handleCancel = () => {
+    setOpen(false);
   }
 
   const handleEditTask = () => {
@@ -80,8 +86,9 @@ const TasksComponent = (props: any) => {
           </Stack>
           <Box className={styles.actions}>
             <EditNoteIcon className={styles.editTask} onClick={handleEditTask} />
-            <DeleteIcon className={styles.deleteIcon} onClick={handleDeleteTask} />
+            <DeleteIcon className={styles.deleteIcon} onClick={() => setOpen(true)} />
           </Box>
+          <DeleteTask open={open} handleDeleteTask={handleDeleteTask} handleCancel={handleCancel}/>
         </Box>
       </Box>
     </>

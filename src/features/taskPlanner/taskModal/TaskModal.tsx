@@ -3,13 +3,21 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Box, TextField, Button, InputLabel } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import styles from './CustomModal.module.css';
-import { addTask, editTask } from '../taskList/taskListSlice';
+import styles from './TaskModal.module.css';
+import { Task, addTask, editTask } from '../taskList/taskListSlice';
 import { useAppDispatch } from '../../../app/hooks';
 
-const CustomModal = (props: any) => {
+type Props = {
+  open: boolean;
+  handleClose: () => void;
+  selectedTask: Task;
+  isEditing: boolean
+}
+
+const TaskModal = (props: Props) => {
   const dispatch = useAppDispatch();
   const { open, handleClose, selectedTask, isEditing } = props;
+
   const [text, setText] = React.useState(selectedTask ? selectedTask.text : '');
   const [prioritySelected, setPrioritySelected] = React.useState(selectedTask ? selectedTask.priority : 'low');
   const [isTextInputEmpty, setIsTextInputEmpty] = useState(true);
@@ -90,7 +98,7 @@ const CustomModal = (props: any) => {
                     className={prioritySelected === 'low' ? styles.lowSelected : styles.low}>Low</li>
                 </ul>
               </Box>
-              <Box>
+              <Box className={styles.actionButtons}>
                 {isEditing ?
                   <Button
                     onClick={(e) => handleSubmit(e)}
@@ -114,4 +122,4 @@ const CustomModal = (props: any) => {
   );
 };
 
-export default CustomModal;
+export default TaskModal;
