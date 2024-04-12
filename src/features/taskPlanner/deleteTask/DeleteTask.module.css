@@ -1,0 +1,39 @@
+.mainContainer {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400;
+  background-color: white;
+  box-shadow: 24;
+  padding: 4;
+  border-radius: 20px;
+  border: none;
+}
+
+.formWrapper {
+  padding: 30px 50px;
+  border: none;
+}
+
+.delete {
+  color: #000;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+
+.cancelButton {
+  text-transform: none !important;
+}
+
+.deleteButton {
+  text-transform: none !important;
+}
