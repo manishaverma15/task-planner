@@ -66,6 +66,22 @@ const TasksComponent = (props: any) => {
     StatusComponent = DoneStatus;
   }
 
+  let priorityColor = '';
+
+  switch (props.task.priority) {
+    case 'high':
+      priorityColor = 'red';
+      break;
+    case 'medium':
+      priorityColor = 'orange';
+      break;
+    case 'low':
+      priorityColor = 'lightgreen';
+      break;
+    default:
+      priorityColor = 'inherit';
+  }
+
   return (
     <>
       <Box>
@@ -76,7 +92,7 @@ const TasksComponent = (props: any) => {
           </Box>
           <Box className={styles.priorityContainer}>
             <span className={styles.priorityTitle}>Priority</span>
-            <span className={styles.priorityStatus}>{props.task.priority}</span>
+            <span className={styles.priorityStatus} style={{ color: priorityColor }}>{props.task.priority}</span>
           </Box>
           <Box className={styles.taskStatusWrapper}>
             <Button className={styles.status} onClick={handleTaskStatus}>{taskStatus}</Button>
@@ -88,7 +104,7 @@ const TasksComponent = (props: any) => {
             <EditNoteIcon className={styles.editTask} onClick={handleEditTask} />
             <DeleteIcon className={styles.deleteIcon} onClick={() => setOpen(true)} />
           </Box>
-          <DeleteTask open={open} handleDeleteTask={handleDeleteTask} handleCancel={handleCancel}/>
+          <DeleteTask open={open} handleDeleteTask={handleDeleteTask} handleCancel={handleCancel} />
         </Box>
       </Box>
     </>
