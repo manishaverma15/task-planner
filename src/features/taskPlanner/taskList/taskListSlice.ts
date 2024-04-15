@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface Task {
@@ -15,7 +15,7 @@ const initialState: TaskState = {
   tasks: loadTasksFromLocalStorage(),
 };
 
-function loadTasksFromLocalStorage(): Task[] {
+export function loadTasksFromLocalStorage(): Task[] {
   const tasksJson = localStorage.getItem('tasks');
   return tasksJson ? JSON.parse(tasksJson) : [];
 }
@@ -42,10 +42,18 @@ export const addTaskSlice = createSlice({
       const { id } = action.payload;
       state.tasks = state.tasks.filter(task => task.id !== id);
       saveTasksToLocalStorage(state.tasks);
+    },
+    editTask: (state, action: PayloadAction<{ id: string, text: string, priority: string }>) => {
+      const { id, text, priority } = action.payload;
+      const index = state.tasks.findIndex(task => task.id === id);
+      if (index !== -1) {
+        state.tasks[index] = { ...state.tasks[index], text, priority };
+        saveTasksToLocalStorage(state.tasks);
+      }
     }
   }
 });
 
-export const { addTask, deleteTask } = addTaskSlice.actions;
+export const { addTask, deleteTask, editTask } = addTaskSlice.actions;
 
 export default addTaskSlice.reducer;

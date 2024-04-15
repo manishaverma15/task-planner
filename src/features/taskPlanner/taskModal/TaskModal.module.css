@@ -1,6 +1,57 @@
-.priorityButtons {
+.mainContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400;
+  background-color: white;
+  box-shadow: 24;
+  padding: 4;
+  border-radius: 20px;
+}
+
+.formWrapper {
+  padding: 30px 50px;
+}
+
+.actionButton {
+  text-transform: none !important;
+}
+
+.titleWrapper {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.title {
+  font-weight: 700 !important;
+  font-size: 22;
+}
+
+.taskLabel {
+  font-weight: 700 !important;
+  font-size: 14;
+  color: #7d8592;
+  margin-bottom: 10;
+}
+
+.textField {
+  border-radius: 10;
+  width: 100%;
+  margin-bottom: 12;
+}
+
+.priorityList {
+  font-weight: 700;
+  font: 14;
+  color: #7d8592;
+  margin-bottom: 2;
+}
+
+.priorityButtons {
+  display: flex;
+  justify-content: space-between !important;
   margin-top: 12;
   list-style: none;
   padding-left: 0;
@@ -15,6 +66,7 @@
   padding-bottom: 5px;
   border-radius: 8px;
   cursor: pointer;
+  margin-right: 10px;
 }
 
 .highSelected {
@@ -38,6 +90,7 @@
   padding-bottom: 5px;
   border-radius: 8px;
   cursor: pointer;
+  margin-right: 10px;
 }
 
 .mediumSelected {
@@ -50,6 +103,7 @@
   padding-bottom: 5px;
   border-radius: 8px;
   cursor: pointer;
+  margin-right: 10px;
 }
 
 .low {
@@ -75,12 +129,6 @@
   cursor: pointer;
 }
 
-.priorityHeading {
-  font-weight: 700;
-  font-size: 14;
-  color: #7d8592;
-}
-
 .priority-buttons li {
   border: 1px solid #ffbd21;
   border-radius: 10px;
@@ -101,20 +149,10 @@
   text-transform: none;
   position: flex-end;
   display: flex;
+  font-size: 12;
+  display: flex;
+  justify-content: right;
 }
-
-/* .activeAddButton {
-  background-color: #713fff;
-  border: none;
-  border-radius: 14px;
-  box-shadow: 0 6px 12px rgba(113, 63, 255, .25);
-  color: #fff;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 600;
-  outline: none;
-  padding: 13px 30px;
-} */
 
 .addButton:disabled {
   background-color: #7d8592;
@@ -127,4 +165,9 @@
   background-color: #713fff;
   text-transform: none;
   float: inline-end;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: right;
 }
